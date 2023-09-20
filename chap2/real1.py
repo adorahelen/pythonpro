@@ -1,0 +1,2 @@
+print("Trust Fund Nuddy"
+        (~)
