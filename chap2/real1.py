@@ -1,2 +1,0 @@
-print("Trust Fund Nuddy"
-        (~)
