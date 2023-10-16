@@ -9,8 +9,10 @@ selected_word = random.choice(words)
 # Inform the player about the length of the selected word
 word_length = len(selected_word)
 
-print(f"Welcome to the Word Guessing Game!")
-print(f"The selected word has {word_length} letters.")
+print(f"Guess the Word!!!")
+print("In this game, the program selects a word at random, and the player's objective is to guess the chosen word.")
+print("\n")
+print(f"Length of the selected word: {word_length}")
 
 # Create a set to store the guessed letters
 guessed_letters = set()
@@ -21,8 +23,9 @@ remaining_attempts = word_length
 while remaining_attempts > 0:
     # Display the current state of the word with underscores
     display_word = ''.join([letter if letter in guessed_letters else '_' for letter in selected_word])
-    print(f"Current word: {display_word}")
     print(f"Remaining attempts: {remaining_attempts}")
+    print(f"Current word: {display_word}")
+    
 
     # Check if the player has guessed the word
     if display_word == selected_word:
@@ -38,7 +41,7 @@ while remaining_attempts > 0:
             print("You've already guessed that letter. Try again.")
         elif user_guess in selected_word:
             guessed_letters.add(user_guess)
-            print("Correct guess!")
+            
         else:
             print("Incorrect guess.")
             remaining_attempts -= 1

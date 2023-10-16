@@ -16,4 +16,4 @@ Your_guess = input("Your guess: ")
 if Your_guess.lower() == Select_words:
     print(f"Congraturation. That is correct: {Select_words}")
 else:
-    print(f"That is not correct. The word was: {Select_words}")
+    print(f"Sorry, that's not correct. The word was: {Select_words}")
