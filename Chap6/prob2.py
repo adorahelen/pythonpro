@@ -1,34 +1,45 @@
-default_list = {}
-compare_list = {"Moe" : 1000}, {"lary" : 1500}
 
-def get_value(item):
-  return item[1]
+scores = [(1500, "Larry"), (1000, "Moe")]
 
-while 1:
-    print("\tHigh Scores Keeper")
-    print ("\n")
-    print("\t0 - Quit")
-    print("\t1 - List Score")
-    print("\t2 - Add a Score")
-    print ("\n")
-    choice = int(input("Choice: "))
+choice = None
 
-    if choice == 0:
-        break
-    elif choice == 2:
-        name = str(input("What is the player's name?:"))
-        score = int(input("What score did the player get?:"))
-        print("\n")
+while choice != 0:
+    print(
+    """
+    High Scores Keeper
 
-        default_list[name] = score
-        combined_dict = {**default_list, **compare_list}
-        sorted_dict = dict(sorted(combined_dict.items(), key=get_value))
+    0 - Quit
+    1 - List Scores
+    2 - Add a Score
+    """
+          )
 
-    elif choice == 1:
-        print(sorted_dict)
+    choice = input ("Choice: \t")
+    print ()
 
+    # exit
 
+    if choice == "0":
+        print ("Good-bye!")
+    elif choice == "1":
+        print ("High Scores")
+        print ("NAME\t\tSCORE")
+        for entry in scores:
+            score, name = entry
+            print (name,"\t",score)
+    # add a score
+    elif choice == "2":
+        name = input("\nWhat is the player's name?: \t")
+        score = int(input("\nWhat score did the player get?: \t"))
+        
+        entry = (score, name)
+        scores.append(entry)
+        scores.sort(reverse = True)
+        scores = scores[:5] # keep only top 5 scores
 
+    # some unknown choice
+    else:
+        print ("Sorry, your choice", choice, "is invalid!")
 
-
+input ("\nPress Enter to exit")
 

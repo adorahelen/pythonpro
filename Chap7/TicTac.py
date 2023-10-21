@@ -1,109 +1,287 @@
-#Let's start by initializing our game board
-board = ["-","-","-",
-         "-","-","-",
-         "-","-","-"]
+## Tic-Tac-Toe
+## Plays the game of tic-tac-toe against a human opponent
 
-#Know if game is still going on by setting it to True
-game_on = True
+# global CONSTANTS
 
-# Initialize our current player to be X
-current_player = "X"
+# X represents X
+X = "X"
+# O represents O
+O = "O"
+# EMPTY represents an empty square on the board
+EMPTY = " "
+# TIE represents a tie game
+TIE = "TIE"
+# NUM_SQUARES is the number of squares on the board
+NUM_SQUARES = 9
 
-#Function to display our game board
-def display_board():
-    print(board[0] + " | " + board[1] + " | " + board[2] + "      " + "1|2|3")
-    print(board[3] + " | " + board[4] + " | " + board[5] + "      " + "4|5|6")
-    print(board[6] + " | " + board[7] + " | " + board[8] + "      " + "7|8|9")
+# Define a function to display instructions
+def display_instruct ():
+    # function documentatino string
+    """Display game instructions."""
 
-# Funtion to define players
-def players():
-    print("Select Player - X or O")
-    p1 = input("Player1: ")
-    p2 = ""
-    if p1 == "X":
-        p2 = "O"
-        print("Player2: " + p2)
-    elif p1 == "O":
-        p2 = "X"
-        print("Player2: " + p2)
-    elif p1 != "O" or p1 != "X":
-        print("Sorry,invalid input. Type X or O")
-        play_game()
+    print(
 
-#Define the player position
-def player_position():
-    global current_player
-    print("Current Player: " + current_player)
-    position = input("Choose position from 1 - 9: ")
+"""
 
-    # Loop through the program untill there is a win or tie
-    valid = False
-    while not valid:
-        while position not in ["1", "2", "3", "4", "5", "6", "7", "8", "9"]:
-          position = input("Choose position from 1 - 9: ")
-        position = int(position) - 1
+Welcome to the greatest intellectual challenge of all time: Tic-Tac-Toe.
+This will be a showdown between your human brain and my silicon processor.
 
-        if board[position] == "-":
-            valid = True
-        else:
-            print("Position already selected, choose another position!")
-    board[position] = current_player
-    display_board()
+You will make your move known by entering a number, 0 - 8. The number
+will correspond to the board position as illustrated:
 
-#Function to play our tic tac game 
-def play_game():
-    print("My Tic Tac Toe Game")
-    display_board()
-    players()
+
+\t\t0 | 1 | 2
+\t\t---------
+\t\t3 | 4 | 5
+\t\t---------
+\t\t6 | 7 | 8
+
+Prepare yourself, human. The ultimate battle is about to begin. \n
+
+"""
+
+)
+
+## Define a function to ask for yes or no
+    # Receives a question
+    # Returns either a "y" or "n"
+def ask_yes_no (question):
+    """Ask a yes or no question"""
+    response = None
+    while response not in ("y", "n"):
+        response = input (question).lower()
+    return response
+
+## Define a function that ask for a number within a range
+    # Receives a question, low number, and a high number
+    # Returns a number in range from low to high
+def ask_number(question, low, high, step):
+    """Ask for a number within range"""
+    response = None
+    step = 1
+    while response not in range (low, high, step):
+        response = int(input(question))
+    return response
+
+## Define a function to determine who goes first
+    # Returns the computer's piece and t3he human's piece
+    # This function utilises the ask_yes_no function
+    # Functions can call other functions
+def pieces ():
+    """Determine if player or computer goes first"""
+    go_first = ask_yes_no("\aDo you require the first move? (y/n):\t")
+    if go_first == "y":
+        print ("\nThen take the first move. You will need it!")
+        human = X
+        computer = O
+    else:
+        print ("\nYour bravery will be your undoing..... I will go first.")
+        computer = X
+        human = O
+    return computer, human
+
+## Defines a function to create an empty board
+    # Returns a board
+def new_board ():
+    """Create new game board"""
+    board = []
+    for square in range(NUM_SQUARES):
+        board.append (EMPTY)
+    return board
+
+## Defines a function to display the board
+    # Receives a board
+def display_board(board):
+    """Display game board on screen"""
+    print ("\n\t", board [0], "|", board [1], "|", board [2])
+    print ("\t", "---------")
+    print ("\n\t", board [3], "|", board [4], "|", board [5])
+    print ("\t", "---------")
+    print ("\n\t", board [6], "|", board [7], "|", board [8])
     
-  #loop  to flip players untill there is a win
-    while game_on:
-        player_position()
-        
-        #Check winner
-        def check_winner():
-            global game_on
-            #Check rows if there is a win 
-            if board[0] == board[1] == board[2] != "-":
-                game_on = False
-                print("Congratulations " + board[0]+" you WON!")
-            elif board[3] == board[4] == board[5] != "-":
-                game_on = False
-                print("Congratulations " + board[3]+" you WON!")
-            elif board[6] == board[7] == board[8] != "-":
-                game_on = False
-                print("Congratulations " + board[6]+" you WON!")
-             #Check columns if there is a win
-            elif board[0] == board[3] == board[6] != "-":
-                game_on = False
-                print("Congratulations " + board[0]+" you WON!")
-            elif board[1] == board[4] == board[7] != "-":
-                game_on = False
-                print("Congratulations " + board[1]+" you WON!")
-            elif board[2] == board[5] == board[8] != "-":
-                game_on = False
-                print("Congratulations " + board[2]+" you WON!")
-             #Check diagonals if there is a win
-            elif board[0] == board[4] == board[8] != "-":
-                game_on = False
-                print("Congratulations " + board[0]+" you WON!")
-            elif board[2] == board[4] == board[6] != "-":
-                game_on = False
-                print("Congratulations "+ board[6]+" you WON!")
-             #If none of the above, then, it's a tie
-            elif "-" not in board:
-                game_on = False
-                print("It's a Tie")
-                exit()
+## Defines a function to be used by other functions to return a list of legal moves
+    # Used by human_move() to make sure player chooses a valid move
+    # Used by computer_move() so computer can consider only valid moves
+    # Works by looping over the board checking for empty squares
+    # If a square is empty, it is added to the legal moves list
+    # Then it returns the legal moves list
+def legal_moves(board):
+    """Create a list of legal moves"""
+    moves = []
+    for square in range (NUM_SQUARES):
+        if board [square] == EMPTY:
+            moves.append (square)
+    return moves
 
-        #Function to flip player
-        def flip_player():
-            global current_player
-            if current_player == "X":
-                current_player = "O"
-            else:
-                current_player = "X"
-        flip_player()ssssss
-        check_winner()
-#Play our tic tac game
-play_game()
+## Defines a function to determine if a game is a win or TIE
+    # Defines a constant (WAYS_TO_WIN) which has all 8 ways one can win
+    # All the ways to win are in an immutable tuple
+    # Use a for loop to go through each possible way a player can win
+    # If statement checks to see if one checks out and no square is empty in the sequence
+    # Receives a board
+    # Returns a piece, "TIE", or None
+def winner (board):
+    """Determines the game winner"""
+    WAYS_TO_WIN = ((0, 1, 2),
+                   (3, 4, 5),
+                   (6, 7, 8),
+                   (0, 3, 6),
+                   (1, 4, 7),
+                   (2, 5, 8),
+                   (0, 4, 8),
+                   (2, 4, 6))
+    for row in WAYS_TO_WIN:
+        if board [row[0]] == board [row[1]] == board [row[2]] != EMPTY:
+            winner = board [row[0]]
+            return winner
+    if EMPTY not in board:
+        return TIE
+    return None
+
+# Define a function that asks for a human move and checks to see if legal
+    # Set variable to legal_moves(board)
+    # Set variable move to None to work with later in function
+    # Function gets list of legal moves
+    # Then continues to ask for a square number until response is legal
+    # Receives a board and the human's piece
+    # Returns the human's move
+def human_move (board, human):
+    """Get human move"""
+    legal = legal_moves(board)
+    move = None
+    while move not in legal:
+        move = ask_number("\nWhere will you move? (0 - 8):\t", 0, NUM_SQUARES, 1)
+        if move not in legal:
+            print ("\a\n That square is already occupied foolish human. Choose another.\n")
+    print ("Fine...")
+    return move
+
+def computer_move(board, computer, human):
+    # Make a copy of the board to work with
+    board = board[:]
+
+    # Define the minimax function
+    def minimax(board, depth, is_maximizing):
+        # Base cases: check for a winner or a tie
+        result = winner(board)
+        if result == computer:
+            return 1
+        elif result == human:
+            return -1
+        elif result == TIE:
+            return 0
+
+        # If it's the maximizing player's turn (computer)
+        if is_maximizing:
+            best_score = -float('inf')
+            for move in legal_moves(board):
+                board[move] = computer
+                score = minimax(board, depth + 1, False)
+                board[move] = EMPTY
+                best_score = max(score, best_score)
+            return best_score
+        # If it's the minimizing player's turn (human)
+        else:
+            best_score = float('inf')
+            for move in legal_moves(board):
+                board[move] = human
+                score = minimax(board, depth + 1, True)
+                board[move] = EMPTY
+                best_score = min(score, best_score)
+            return best_score
+
+    # Initialize variables
+    best_move = -1
+    best_score = -float('inf')
+
+    # Find the best move
+    for move in legal_moves(board):
+        board[move] = computer
+        score = minimax(board, 0, False)
+        board[move] = EMPTY
+        if score > best_score:
+            best_score = score
+            best_move = move
+
+    return best_move
+
+# Define a function that switches turns
+    # Switches turns based on current turn
+    # Receives a piece
+    # Returns a piece
+def next_turn (turn):
+    """Switch turns"""
+    if turn == X:
+        return O
+    else:
+        return X
+
+# Defines a function to congratulate winner based on result
+    # Congratulates winner or declares a TIE
+    # Receives the winning piece, the computer's piece, and the human's piece
+def congrat_winner(the_winner, computer, human):
+    """Congratulate the winner"""
+    if the_winner != TIE:
+        print (the_winner, "\awon!\n")
+    else:
+        print ("It's a tie!\n\a")
+
+    if the_winner == computer:
+        print ("As I predicted, human, I am triumphant once more.  \n" \
+               "Proof that computers are superior to humans in all regards.\a")
+
+    elif the_winner == human:
+        print ("No, no! It cannot be! Somehow you tricked me, human. \n" \
+               "But never again! I, the computer, so swear it!\a")
+
+    elif the_winner == TIE:
+        print ("You were the most lucky, human, and somehow managed to tie me.  \n" \
+               "Celebrate today... for this is the best you will ever achieve! \a")
+
+        
+## This is where I define the main() function
+    # It is best to encapsulate the main() function as well
+    # Rather than keep it global
+def main():
+    # display intructions
+    display_instruct()
+    # determine who goes first
+    computer, human = pieces ()
+    turn = X
+    # create empty board
+    board = new_board ()
+    # display the board
+    display_board (board)
+
+    # while nobody's won and it's not a tie
+    while not winner (board):
+        # if it's the humans turn
+        # get human's move
+        # update board with move
+        if turn == human:
+            move = human_move (board, human)
+            board [move] = human
+        # otherwise
+        # calculate the computer's move
+        # update the board with the move
+        else:
+            move = computer_move (board, computer, human)
+            board [move] = computer
+        # display the board
+        display_board (board)
+        # switch turns
+        turn = next_turn (turn)
+
+    # congratulate winner or declare tie
+    the_winner = winner (board)
+    congrat_winner (the_winner, computer, human)
+
+# Now it's time to call the main () function
+    # the next line calls the main function
+    # in turn it calls all the other functions from the global level
+
+# Start the program
+
+main ()
+input ("\a\nPress the Enter key to exit")
+
