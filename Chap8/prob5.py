@@ -1,28 +1,19 @@
-num = None
-num2 = None
-num3 = None
-
 # 기본적인 예외처리 
 try:
     num = float(input("Enter a number:\t"))
 except:
     print ("Something went wrong!")
-else:
-    print ("You typed:\t", num)
 
 # 특정 예외 타입 처리 
 try:
     num = float(input("Enter a number:\t"))
 except ValueError:
     print ("That was not a number")
-else:
-    print ("You entered:\t", num)
 
 # 다중 예외 처리 
 
 print ()
-for value in (None, "Hi!"):
-    
+for value in (None, "Hi!"):   
     try:
         print ("Attempting to convert", value, "--->", end = " ")
         print (float(value))
@@ -45,12 +36,14 @@ for value in (None, "Hi!"):
 
 # 수정해야 화는 부분 
 try:
-	num2 = float(input("Enter a number:\t"))
-except ValueError:
-	print ("That was not a number! Or as Python would say:\t")
+    num = float(input("\nEnter a number:\t"))
+except(ValueError) as e:
+	print ("That was not a number! Or as Python would say:\t", e, sep = '')
+try:
+    num = float(input("\nEnter a number: "))
+except(ValueError):
+    print("That was not a number!") 
 else:
- 	print ("You entered the number \t", num2)
-
-print("invaild literal for float<>:", num2)
+ 	print ("You entered the number \t", num)
 
 input ("\n\nPress Enter key to exit")
